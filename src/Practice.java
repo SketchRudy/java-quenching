@@ -284,6 +284,6 @@ public class Practice {
             }
         }
     }
-        return 0;
+        return sinks;
     }
 }
