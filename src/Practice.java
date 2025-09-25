@@ -126,7 +126,8 @@ public class Practice {
             T val = curr.data; 
             freq.put(val, freq.getOrDefault(val, 0) + 1);
             curr = curr.next;
-    }
+        }
+
         return freq;
     }
 
@@ -140,7 +141,11 @@ public class Practice {
      * @return the number of levels in the tree
      */
     public static int levelCount(BinaryTreeNode<?> root) {
+        if (root == null) {
         return 0;
+        }
+
+        return 1 + Math.max(levelCount(root.left), levelCount(root.right));
     }
 
 
@@ -168,7 +173,13 @@ public class Practice {
      * @return the sum of the nodes at the given level
      */
     public static int sumAtLevel(BinaryTreeNode<Integer> root, int level) {
-        return 0;
+        if (root == null || level < 1) {
+            return 0;
+        }
+        if (level == 1) {
+            return root.data; 
+        }
+        return sumAtLevel(root.left, level - 1) + sumAtLevel(root.right, level - 1);
     }
 
 
