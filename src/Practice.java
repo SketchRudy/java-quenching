@@ -1,5 +1,6 @@
 import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
 
 public class Practice {
     /**
@@ -43,7 +44,7 @@ public class Practice {
             throw new IllegalArgumentException("Words is empty");
         } 
 
-        String shortest = "";
+        String shortest = words.iterator().next();
         for (String i : words) {
             if (i.length() < shortest.length()) {
                 shortest = i;
@@ -65,7 +66,18 @@ public class Practice {
      * @throws NullPointerException if ages is null
      */
     public static Set<String> adults(Map<String, Integer> ages) {
-        return null;
+        if (ages == null) {
+            throw new NullPointerException("no age");
+        }
+
+        Set<String> result = new HashSet<>();
+        for (Map.Entry<String, Integer> entry : ages.entrySet()) {
+            Integer age = entry.getValue();
+            if (age != null && age >= 18) {
+                result.add(entry.getKey());
+            }
+        }
+        return result;
     }
 
     /**
