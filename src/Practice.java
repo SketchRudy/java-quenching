@@ -1,9 +1,12 @@
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Practice {
     /**
@@ -196,7 +199,7 @@ public class Practice {
      * @return true if the sums are equal, false otherwise
      */
     public static boolean sumMatch(BinaryTreeNode<Integer> root, ListNode<Integer> head) {
-        return treeSum(root) == listSum(head);;
+        return treeSum(root) == listSum(head);
     }
 
     private static int treeSum(BinaryTreeNode<Integer> node) {
@@ -232,7 +235,22 @@ public class Practice {
         }
 
         int sum = 0;
+        Set<Vertex<Integer>> seen = new HashSet<>();
+        Queue<Vertex<Integer>> queue = new LinkedList<>();
+        queue.add(start);
+        seen.add(start);
 
+        while (!queue.isEmpty()) {
+            Vertex<Integer> v = queue.poll();
+            sum += v.data;
+
+            for (Vertex<Integer> n : v.neighbors) {
+                if (n != null && seen.add(n)) {
+                    queue.add(n);
+                }
+            }
+        }
+        return sum;
     }
 
     /**
@@ -244,6 +262,28 @@ public class Practice {
      * @return the count of vertices with outdegree 0
      */
     public static int sinkCount(Vertex<Integer> start) {
+        if (start == null) return 0;
+
+        int sinks = 0;
+        Set<Vertex<Integer>> seen = new HashSet<>();
+        Queue<Vertex<Integer>> q = new LinkedList<>();
+        q.add(start);
+        seen.add(start);
+
+        while (!q.isEmpty()) {
+        Vertex<Integer> v = q.poll();
+        List<Vertex<Integer>> neighbor = v.neighbors;
+
+        if (neighbor == null || neighbor.isEmpty()) {
+            sinks++;
+        } else {
+            for (Vertex<Integer> n : neighbor) {
+                if (n != null && seen.add(n)) {
+                    q.add(n);
+                }
+            }
+        }
+    }
         return 0;
     }
 }
