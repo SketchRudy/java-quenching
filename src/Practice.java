@@ -1,5 +1,7 @@
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -194,8 +196,26 @@ public class Practice {
      * @return true if the sums are equal, false otherwise
      */
     public static boolean sumMatch(BinaryTreeNode<Integer> root, ListNode<Integer> head) {
-        return false;
+        return treeSum(root) == listSum(head);;
     }
+
+    private static int treeSum(BinaryTreeNode<Integer> node) {
+        if (node == null) return 0;
+
+        int v = node.data; 
+
+        return v + treeSum(node.left) + treeSum(node.right);
+}
+
+    private static int listSum(ListNode<Integer> node) {
+        int total = 0;
+        ListNode<Integer> curr = node;
+        while (curr != null) {
+            total += curr.data; // use curr.data if that's your field
+            curr = curr.next;
+        }
+        return total;
+}
 
     /**
      * Returns the sum of all the vertices in a graph that are reachable from a given
@@ -207,7 +227,12 @@ public class Practice {
      * @return the sum of all the vertices
      */
     public static int graphSum(Vertex<Integer> start) {
-        return 0;
+        if (start == null) {
+            return 0;
+        }
+
+        int sum = 0;
+
     }
 
     /**
